@@ -1,5 +1,5 @@
 %h1
-	Switter
+	Switter | Sign Up
 
 - if @new_user.errors.any?
 	#error_explanation
@@ -11,7 +11,8 @@
 
 %div#signup
 	- flash.each do |message_type, message|
-		%div{:class => "alert alert-#{message_type}"}= message
+		%div
+			message
 	= form_for :signup, url: signup_path do |u|
 		= u.label :firstname
 		= u.text_field :firstname
