@@ -1,0 +1,32 @@
+%h1
+	Switter
+
+- if @new_user.errors.any?
+	#error_explanation
+		.alert.alert-danger
+			The form contains #{pluralize(@new_user.errors.count, "error")}.
+	%ul
+		- @new_user.errors.full_messages.each do |msg|
+			%li= msg
+
+%div#signup
+	- flash.each do |message_type, message|
+		%div{:class => "alert alert-#{message_type}"}= message
+	= form_for :signup, url: signup_path do |u|
+		= u.label :firstname
+		= u.text_field :firstname
+		= u.label :middlename
+		= u.text_field :middlename
+		= u.label :lastname
+		= u.text_field :lastname
+		%br/
+		= u.label	:username
+		= u.text_field :username
+		= u.label :email
+		= u.email_field :email
+		= u.label :password
+		= u.password_field :password
+		= u.label :confirmation
+		= u.password_field :confirmation
+		= u.button('Sign Up')
+	= link_to 'Login', login_path

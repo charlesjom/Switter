@@ -1,0 +1,11 @@
+%h1
+	Switter | Login
+
+%div#login
+	= form_for :login, url: login_path do |l|
+		= l.label :username
+		= l.text_field :username
+		= l.label :password
+		= l.password_field :password
+		= l.button('Login')
+	= link_to 'Create a new account', signup_path
