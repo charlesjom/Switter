@@ -5,9 +5,8 @@ Rails.application.routes.draw do
 	get '/logout', to: 'sessions#destroy'
 	get '/signup', to: 'users#new'
 	post '/signup', to: 'users#create'
-
-	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-	# resources :users, except: [:new, :create]
-	# resources :sessions, except: [:new, :edit, :update, :destroy]
-	resources :swits, except: [:edit, :update]
+	get '/change_pass', to: 'users#edit_pass'
+	post 'update_pass', to: 'users#update_pass'
+	resources :users, only: :show
+	resources :swits, only: [:index, :create, :destroy]
 end

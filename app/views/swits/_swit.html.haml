@@ -1,0 +1,11 @@
+%div.swit
+	%span.user
+		= link_to swit.user.username, swit.user
+	%span.content
+		= swit.content
+	%span.timestamp
+		Posted
+		= time_ago_in_words(swit.created_at)
+		ago
+	- if current_user == swit.user
+		= link_to "delete", swit, method: :delete, data: { confirm: "Delete this Swit?" }

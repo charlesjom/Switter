@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+	skip_before_action :require_login, only: [:new, :create]
+	
 	def new
 	end
 
@@ -10,7 +12,7 @@ class SessionsController < ApplicationController
 		else
 			flash[:notice] = "Invalid username or password"
 			flash[:type] = "error"
-			render "new"
+			render :new
 		end
 	end
 

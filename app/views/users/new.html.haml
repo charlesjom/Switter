@@ -25,9 +25,10 @@
 		= u.text_field :username
 		= u.label :email
 		= u.email_field :email
+		%br/
 		= u.label :password
 		= u.password_field :password
 		= u.label :confirmation
 		= u.password_field :confirmation
-		= u.button('Sign Up')
+		= u.button 'Sign Up', :class => "ui button"
 	= link_to 'Login', login_path

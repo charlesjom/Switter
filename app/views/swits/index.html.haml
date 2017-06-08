@@ -1,3 +1,11 @@
 %h1
 	Switter
+= form_for :swit, url: swits_path do |s|
+	.field
+		= s.text_area :content, placeholder: "Make a Swit..."
+	= s.submit "Post", :class => "ui primary button"
+
+%div.swits
+	= render partial: :swit, collection: @swits
+
 = link_to 'Logout', logout_path
