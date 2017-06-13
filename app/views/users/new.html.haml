@@ -1,34 +1,47 @@
-%h1
-	Switter | Sign Up
+.ui.container
+	.ui.menu
+		= link_to 'Switter', root_path, :class => "item header"
+		.right.menu
+			- if current_user == nil
+				= link_to 'Login', login_path, :class => "item"
+			- else
+				= link_to 'Logout', logout_path, :class => "item"
+	.ui.doubling.grid
+		.four.wide.column
+		
+		.eight.wide.column
+			#signup
+				- if @new_user.errors.any?
+					#error_explanation.ui.error.message
+						.alert.alert-danger
+							The form contains #{pluralize(@new_user.errors.count, "error")}.
+							%ul
+								- @new_user.errors.full_messages.each do |msg|
+									%li= msg
+				= form_with scope: :signup, :class => "ui form", url: signup_path do |u|
+					%label
+						Name
+						.three.fields
+							.field
+								= u.text_field :firstname, :placeholder => "First Name"
+							.field
+								= u.text_field :middlename, :placeholder => "Middle Name"
+							.field
+								= u.text_field :lastname, :placeholder => "Last Name"
+					%label
+						Credentials	
+						.two.fields
+							.field							
+								= u.text_field :username, :placeholder => "Username"
+							.field	
+								= u.email_field :email, :placeholder => "Email"
+					%label
+						Password		
+						.two.fields
+							.field
+								= u.password_field :password, :placeholder => "Password"
+							.field
+								= u.password_field :password_confirmation, :placeholder => "Password Confirmation"
+					= u.submit 'Sign Up', :class => "ui button"
 
-- if @new_user.errors.any?
-	#error_explanation
-		.alert.alert-danger
-			The form contains #{pluralize(@new_user.errors.count, "error")}.
-	%ul
-		- @new_user.errors.full_messages.each do |msg|
-			%li= msg
-
-%div#signup
-	- flash.each do |message_type, message|
-		%div
-			message
-	= form_for :signup, url: signup_path do |u|
-		= u.label :firstname
-		= u.text_field :firstname
-		= u.label :middlename
-		= u.text_field :middlename
-		= u.label :lastname
-		= u.text_field :lastname
-		%br/
-		= u.label	:username
-		= u.text_field :username
-		= u.label :email
-		= u.email_field :email
-		%br/
-		= u.label :password
-		= u.password_field :password
-		= u.label :confirmation
-		= u.password_field :confirmation
-		= u.button 'Sign Up', :class => "ui button"
-	= link_to 'Login', login_path
+		.four.wide.column

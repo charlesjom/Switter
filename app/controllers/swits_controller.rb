@@ -1,22 +1,30 @@
 class SwitsController < ApplicationController
 	def index
-		@swits = current_user.swits.all if logged_in?
-		@swits = current_user.swits.all if logged_in?
-		render :index
+		@swits = Swit.all if logged_in?
+		respond_to do |format|
+			format.html
+			format.js
+		end
 	end
 
 	def create
-		@swits = current_user.swits.build(swit_params)
-		@swits.save
-		@swits = current_user.swits.all if logged_in?
-		render :index
+		@swit = current_user.swits.build(swit_params)
+		@swit.save
+		@swit = current_user.swits.first()
+		@swits = Swit.all if logged_in?
+		respond_to do |format|
+			format.html
+			format.js
+		end
 	end
 
 	def destroy
-		swit = current_user.swits.find(params[:id])
-		swit.destroy
-		@swits = current_user.swits.all if logged_in?
-		render :index
+		@swit = current_user.swits.find(params[:id])
+		@swit.destroy
+		respond_to do |format|
+			format.html
+			format.js
+		end
 	end
 
 	private

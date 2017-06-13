@@ -1,6 +1,31 @@
-- if current_user.id == @user.id
-	= link_to 'View My Swits', swits_path
-%div
-	= @user.firstname
-	= @user.middlename
-	= @user.lastname
+.ui.container
+	.ui.menu
+		= link_to 'Switter', root_path, :class => "item header"
+		.right.menu
+			- if current_user == nil
+				= link_to 'Login', login_path, :class => "item"
+			- else
+				= link_to 'Logout', logout_path, :class => "item"
+
+	.ui.doubling.grid
+		.four.wide.column
+		
+		.eight.wide.column
+			.ui.fluid.card
+				.content
+					.header
+						= @user.username
+					.meta
+						= @user.firstname
+						= @user.middlename
+						= @user.lastname
+
+				.extra.content
+					- if current_user.id == @user.id
+						= link_to 'View My Swits', swits_path, :class => "ui button"
+						= link_to 'Change Username', edit_user_path, :params => {to_edit: :username}, :class => "ui button", remote: true
+						= link_to 'Change Password', edit_user_path, :params => {to_edit: :password},:class => "ui button", remote: true
+
+					#form-cards
+
+		.four.wide.column
