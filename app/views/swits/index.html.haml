@@ -1,20 +1,25 @@
-.ui.container
-	.ui.menu
-		= link_to 'Switter', root_path, :class => "item header"
-		.right.menu
-			= link_to 'Logout', logout_path, :class => "item"
-	.ui.doubling.grid
-		.four.wide.column
-		
-		.eight.wide.column
-			.ui.raised.segment
-				= form_with scope: :swit, :id => "new-swit", url: swits_path do |s|
-					.ui.field.input.fluid
-						= s.text_field :content, placeholder: "Make a Swit..."
-					.ui.field.input
-						= s.submit "Swit", :class => "ui right floated primary button", data: {url: swits_path}
+.ui.massive.segment
+	.ui.inverted.fixed.large.menu
+		.ui.container
+			= link_to 'Switter', root_path, class: "ui orange header inverted item"
+			.right.menu
+				= link_to 'Logout', logout_path, class: "item"
+.ui.container.doubling.grid
+	.four.wide.column
+	
+	.eight.wide.column
+		.ui.segment
+			= form_for :swit, url: swits_path, html: {id: "new-swit", class: "ui large form"}, remote: true do |s|
+				.field
+					= s.text_area :content, rows: 3, id: "new-swit-text", placeholder: "Make a Swit..."
+				.field
+					%span#char-left 0	
+					%span /140
+					= s.submit "Swit", id: "swit-button", class: "ui right floated primary button"
 
-			%div.swits.ui.divided.link.items
-				= render partial: :swit, collection: @swits
+				#swit-error
+			
+		.ui.swits.items.large.comments.feed
+			= render partial: :swit, collection: @swits
 
-		.four.wide.column
+	.four.wide.column

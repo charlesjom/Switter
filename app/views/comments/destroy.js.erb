@@ -1,0 +1,5 @@
+swit = "<%= @swit.id %>"
+$("#comment-<%= @comment.id%>").remove()
+count = $("#swit-" + swit).find($(".swit-comments-count")).text()
+count = parseInt(count)
+$("#swit-" + swit).find($(".swit-comments-count")).text(count-1)

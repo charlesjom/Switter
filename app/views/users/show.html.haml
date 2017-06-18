@@ -1,16 +1,21 @@
+.ui.massive.segment
+	.ui.inverted.fixed.large.menu
+		.ui.container
+			= link_to 'Switter', root_path, class: "ui orange header inverted item"
+			.right.menu
+				= link_to 'Logout', logout_path, class: "item"
 .ui.container
-	.ui.menu
-		= link_to 'Switter', root_path, :class => "item header"
-		.right.menu
-			- if current_user == nil
-				= link_to 'Login', login_path, :class => "item"
-			- else
-				= link_to 'Logout', logout_path, :class => "item"
-
 	.ui.doubling.grid
 		.four.wide.column
 		
 		.eight.wide.column
+			- if !flash[:notice].nil?
+				.ui.positive.icon.message
+					%i.close.icon
+					%i.checkmark.box.icon
+					.content
+						.header
+							= flash[:notice]
 			.ui.fluid.card
 				.content
 					.header
@@ -22,10 +27,12 @@
 
 				.extra.content
 					- if current_user.id == @user.id
-						= link_to 'View My Swits', swits_path, :class => "ui button"
 						= link_to 'Change Username', edit_user_path, :params => {to_edit: :username}, :class => "ui button", remote: true
 						= link_to 'Change Password', edit_user_path, :params => {to_edit: :password},:class => "ui button", remote: true
 
 					#form-cards
+
+			.ui.swits.divided.items.feed
+				= render partial: :swit, collection: @swits
 
 		.four.wide.column

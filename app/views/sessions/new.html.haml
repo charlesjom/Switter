@@ -1,21 +1,23 @@
+.ui.massive.segment
+	.ui.inverted.fixed.large.menu
+		.ui.container
+			= link_to 'Switter', root_path, class: "ui orange header inverted item"
+			.right.menu
+				= link_to 'Signup', signup_path, class: "item"
 .ui.container
-	.ui.menu
-		= link_to 'Switter', root_path, :class => "item header"
-		.right.menu
-			= link_to 'Sign up', signup_path, :class => "item"
 	.ui.doubling.grid
 		.four.wide.column
 		
 		.eight.wide.column
-			#login
+			.ui.raised.segment#login
 				- if !@login_error.nil?
-					#error_explanation.ui.error.message
-						@login_error.message
+					.ui.error.message
+						= @login_error[:message]
 
-				= form_with scope: :login, :class => "ui form", url: login_path do |l|
+				= form_for :login, url: login_path, html: {class: "ui massive form"} do |l|
 					.field
-						= l.text_field :username, :placeholder => "Username"
+						= l.text_field :username, placeholder: "Username"
 					.field
-						= l.password_field :password, :placeholder => "Password"
-					= l.submit 'Login', :class => "ui primary button"			
+						= l.password_field :password, placeholder: "Password"
+					= l.submit 'Login', class: "ui primary massive button"			
 		.four.wide.column

@@ -5,7 +5,17 @@ Rails.application.routes.draw do
 	get '/logout', to: 'sessions#destroy'
 	get '/signup', to: 'users#new'
 	post '/signup', to: 'users#create'
-	resources :users, only: [:show, :edit, :update]
-	resources :swits, only: [:index, :create, :destroy]
-	resources :comments, only: [:index, :create, :destroy]
+	get '/swits/:term', to: 'swits#search', as: 'swit_search'
+	resources :users, only: [:show, :edit, :update] do
+		collection do
+			patch 'update_password'
+		end
+	end
+	resources :swits, only: [:index, :create, :destroy] do
+		resources :comments, only: [:new, :create, :destroy]
+		member do
+			get 'toggle_sweet'
+			get 'toggle_sour'
+		end
+	end
 end
