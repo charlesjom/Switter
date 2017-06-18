@@ -1,0 +1,18 @@
+swit = "<%= @swit.id %>"
+comment_form = $("<%= escape_javascript render partial: "new" %>")
+comment_box = $("#swit-" + swit + "-comment-box")
+comments_list = $("#swit-" + swit + "-comments-list")
+comment_partial = $("<%= escape_javascript render partial: 'comments/comment', collection: @comments %>")
+
+if ($(comment_box).is(":empty") && $(comments_list).is(":empty")) {
+	comment_box.empty()
+	comments_list.empty()
+	comment_box.append(comment_form)
+	comments_list.append(comment_partial)
+	comments_list.addClass("comments")
+}
+else {
+	comment_box.empty()
+	comments_list.empty()
+	comments_list.removeClass("comments")
+}

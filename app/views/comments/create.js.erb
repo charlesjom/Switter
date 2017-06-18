@@ -1,0 +1,7 @@
+swit = "<%= @swit.id %>"
+new_comment = $("<%= escape_javascript render partial: "comments/comment", locals: {comment: @comment} %>")
+$("#swit-" + swit + "-comment-text").val("")
+$("#swit-" + swit + "-comments-list").prepend(new_comment)
+count = $("#swit-" + swit).find($(".swit-comments-count")).text()
+count = parseInt(count)
+$("#swit-" + swit).find($(".swit-comments-count")).text(count+1)

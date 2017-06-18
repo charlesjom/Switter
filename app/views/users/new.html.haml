@@ -1,34 +1,43 @@
-%h1
-	Switter | Sign Up
+.ui.massive.segment
+	.ui.inverted.fixed.large.menu
+		.ui.container
+			= link_to 'Switter', root_path, class: "ui orange header inverted item"
+			.right.menu
+				= link_to 'Login', login_path, class: "item"
+.ui.container
+	.ui.doubling.grid
+		.two.wide.column
 
-- if @new_user.errors.any?
-	#error_explanation
-		.alert.alert-danger
-			The form contains #{pluralize(@new_user.errors.count, "error")}.
-	%ul
-		- @new_user.errors.full_messages.each do |msg|
-			%li= msg
+		.twelve.wide.column
+			.ui.raised.segment#signup
+				= form_for @user, url: signup_path, html: {class: "ui massive form"} do |u|
+					.three.fields
+						.required.field
+							= u.label "First Name"
+							= u.text_field :firstname, placeholder: "First Name"
+						.required.field
+							= u.label "Middle Name"
+							= u.text_field :middlename, placeholder: "Middle Name"
+						.required.field
+							= u.label "Last Name"
+							= u.text_field :lastname, placeholder: "Last Name"
+					.two.fields
+						.required.field
+							= u.label "Username"						
+							= u.text_field :username, placeholder: "Username"
+						.required.field
+							= u.label "Email"
+							= u.email_field :email, placeholder: "Email"
+					.two.fields
+						.required.field
+							= u.label "Password"
+							= u.password_field :password, placeholder: "Password"
+						.required.field
+							= u.label "Password confirmation"
+							= u.password_field :password_confirmation, placeholder: "Password Confirmation"
+					= u.submit 'Sign Up', class: "ui massive button"
+				- if @user.errors.any?
+					.ui.error.message
+						= @user.errors.full_messages.first
 
-%div#signup
-	- flash.each do |message_type, message|
-		%div
-			message
-	= form_for :signup, url: signup_path do |u|
-		= u.label :firstname
-		= u.text_field :firstname
-		= u.label :middlename
-		= u.text_field :middlename
-		= u.label :lastname
-		= u.text_field :lastname
-		%br/
-		= u.label	:username
-		= u.text_field :username
-		= u.label :email
-		= u.email_field :email
-		%br/
-		= u.label :password
-		= u.password_field :password
-		= u.label :confirmation
-		= u.password_field :confirmation
-		= u.button 'Sign Up', :class => "ui button"
-	= link_to 'Login', login_path
+		.two.wide.column

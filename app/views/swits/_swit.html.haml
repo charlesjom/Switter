@@ -1,11 +1,44 @@
-%div.swit
-	%span.user
-		= link_to swit.user.username, swit.user
-	%span.content
-		= swit.content
-	%span.timestamp
-		Posted
-		= time_ago_in_words(swit.created_at)
-		ago
-	- if current_user == swit.user
-		= link_to "delete", swit, method: :delete, data: { confirm: "Delete this Swit?" }
+.ui.swit.item.comment.event{id: "swit-#{swit.id}" }
+	.content
+		- if current_user == swit.user
+			= link_to swit_path(swit), remote: true, class: "ui right floated", method: :delete, data: { confirm: "Delete this Swit?" } do
+				%i.remove.icon
+		= link_to swit.user.username, user_path(swit.user), class: "author"
+		.metadata
+			%span.date
+				= time_ago_in_words(swit.created_at)
+				ago
+
+		.extra.text
+			- swit.content.split(" ").each do |t|
+				- if door_tag? t
+					= link_to t, swit_search_path(t), class: "door-tag"
+				- else
+					= t
+
+		.ui.icon.buttons
+			= link_to toggle_sweet_swit_path(swit), remote: true do
+				.ui.labeled.button	
+					.ui.red.button
+						%i.birthday.icon
+						Sweet
+					%span.ui.left.pointing.label
+						= swit.sweets.count
+			= link_to toggle_sour_swit_path(swit), remote: true do
+				.ui.labeled.button
+					.ui.yellow.button
+						%i.cocktail.icon
+						Sour
+					%span.ui.left.pointing.label
+						= swit.sours.count
+			= link_to new_swit_comment_path(swit), remote: true do
+				.ui.labeled.button
+					.ui.green.button
+						%i.reply.icon
+						Comments
+					%span.ui.left.pointing.label.swit-comments-count
+						= swit.comments.count
+		.extra.content
+			.comments-container{:id => "swit-#{swit.id}-comments-container"}
+				.ui.comments-list{:id => "swit-#{swit.id}-comments-list"}
+				%div{id: "swit-#{swit.id}-comment-box"}

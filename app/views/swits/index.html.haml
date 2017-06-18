@@ -1,11 +1,25 @@
-%h1
-	Switter
-= form_for :swit, url: swits_path do |s|
-	.field
-		= s.text_area :content, placeholder: "Make a Swit..."
-	= s.submit "Post", :class => "ui primary button"
+.ui.massive.segment
+	.ui.inverted.fixed.large.menu
+		.ui.container
+			= link_to 'Switter', root_path, class: "ui orange header inverted item"
+			.right.menu
+				= link_to 'Logout', logout_path, class: "item"
+.ui.container.doubling.grid
+	.four.wide.column
+	
+	.eight.wide.column
+		.ui.segment
+			= form_for :swit, url: swits_path, html: {id: "new-swit", class: "ui large form"}, remote: true do |s|
+				.field
+					= s.text_area :content, rows: 3, id: "new-swit-text", placeholder: "Make a Swit..."
+				.field
+					%span#char-left 0	
+					%span /140
+					= s.submit "Swit", id: "swit-button", class: "ui right floated primary button"
 
-%div.swits
-	= render partial: :swit, collection: @swits
+				#swit-error
+			
+		.ui.swits.items.large.comments.feed
+			= render partial: :swit, collection: @swits
 
-= link_to 'Logout', logout_path
+	.four.wide.column

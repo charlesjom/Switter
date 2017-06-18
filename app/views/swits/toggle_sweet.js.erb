@@ -1,0 +1,3 @@
+swit_id = "<%= @swit.id %>"
+swit = $("<%= escape_javascript render partial: "swit", locals: {swit: @swit} %>")
+$("#swit-"+swit_id).replaceWith(swit)

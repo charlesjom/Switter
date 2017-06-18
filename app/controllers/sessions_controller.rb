@@ -2,6 +2,9 @@ class SessionsController < ApplicationController
 	skip_before_action :require_login, only: [:new, :create]
 	
 	def new
+		if !current_user.nil?
+			redirect_to swits_path
+		end
 	end
 
 	def create
@@ -10,15 +13,13 @@ class SessionsController < ApplicationController
 			log_in user
 			redirect_to swits_path
 		else
-			flash[:notice] = "Invalid username or password"
-			flash[:type] = "error"
+			@login_error = { message: "Wrong username or password" }	
 			render :new
 		end
 	end
 
 	def destroy
 		log_out if logged_in?
-		flash[:notice] = "You have sucessfully logged out."
 		redirect_to root_path
 	end
 

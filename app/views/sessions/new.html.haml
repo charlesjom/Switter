@@ -1,11 +1,23 @@
-%h1
-	Switter | Login
+.ui.massive.segment
+	.ui.inverted.fixed.large.menu
+		.ui.container
+			= link_to 'Switter', root_path, class: "ui orange header inverted item"
+			.right.menu
+				= link_to 'Signup', signup_path, class: "item"
+.ui.container
+	.ui.doubling.grid
+		.four.wide.column
+		
+		.eight.wide.column
+			.ui.raised.segment#login
+				- if !@login_error.nil?
+					.ui.error.message
+						= @login_error[:message]
 
-%div#login
-	= form_for :login, url: login_path do |l|
-		= l.label :username
-		= l.text_field :username
-		= l.label :password
-		= l.password_field :password
-		= l.button 'Login', :class => "ui primary button"
-	= link_to 'Create a new account', signup_path
+				= form_for :login, url: login_path, html: {class: "ui massive form"} do |l|
+					.field
+						= l.text_field :username, placeholder: "Username"
+					.field
+						= l.password_field :password, placeholder: "Password"
+					= l.submit 'Login', class: "ui primary massive button"			
+		.four.wide.column

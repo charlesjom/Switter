@@ -1,0 +1,12 @@
+.comment{id: "comment-#{comment.id}" }
+	.content
+		- if current_user == comment.user
+			= link_to swit_comment_path(comment.swit, comment), remote: true, class: "ui right floated", method: :delete, data: { confirm: "Delete this Comment?" } do
+				%i.remove.icon
+		= link_to comment.user.username, comment.user, class: "author"
+		.metadata
+			.date
+				= time_ago_in_words(comment.created_at)
+				ago
+		.text
+			= comment.content

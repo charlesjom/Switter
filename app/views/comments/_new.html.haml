@@ -1,0 +1,5 @@
+= form_for :comment, url: swit_comments_path(@swit), html: {class: "ui tiny form"}, remote: true do |s|
+	.ui.field.input.fluid
+		= s.text_field :content, placeholder: "Add a comment", id: "swit-#{@swit.id}-comment-text"
+	.ui.field.input
+		= s.submit "Submit", :class => "ui right floated primary tiny button"
