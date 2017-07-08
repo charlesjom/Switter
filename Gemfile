@@ -30,8 +30,6 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-gem 'bcrypt-ruby', :require => 'bcrypt' 
-
 # Use Haml for the app
 gem 'haml'
 # Use Haml with Rails for the views
