@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 	def create
 		@swit = Swit.find(params[:swit_id])
-		@comment = @swit.comments.build(content: comment_params[:content], user_id: @swit[:user_id], swit_id: @swit[:id])
+		@comment = @swit.comments.build(content: comment_params[:content], user_id: current_user.id, swit_id: @swit[:id])
 		if @comment.save
 			respond_to do |format|
 				format.js

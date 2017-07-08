@@ -3,10 +3,9 @@
 		.ui.container
 			= link_to 'Switter', root_path, class: "ui orange header inverted item"
 			.right.menu
+				= link_to current_user.username, user_path(current_user), class: "item"
 				= link_to 'Logout', logout_path, class: "item"
-.ui.container.doubling.grid
-	.four.wide.column
-	
+.ui.container.centered.doubling.grid
 	.eight.wide.column
 		.ui.segment
 			= form_for :term, url: swit_search_path(), html: {id: "search", class: "ui large form"}, remote: true do |s|
@@ -15,7 +14,5 @@
 						= s.text_field :term, rows: 3, id: "new-swit-text", placeholder: "Search a Swit..."
 						= s.submit "Search", id: "swit-button", class: "ui primary icon button"
 
-		.ui.swits.items.large.comments.feed#search-results
-			= render partial: :swit, collection: @swits
-
-	.four.wide.column
+		.ui.swits.divided.items.large.feed.segment#search-results
+			= render partial: 'swit', collection: @swits

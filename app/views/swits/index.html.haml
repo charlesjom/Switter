@@ -3,10 +3,9 @@
 		.ui.container
 			= link_to 'Switter', root_path, class: "ui orange header inverted item"
 			.right.menu
+				= link_to current_user.username, user_path(current_user), class: "item"
 				= link_to 'Logout', logout_path, class: "item"
-.ui.container.doubling.grid
-	.four.wide.column
-	
+.ui.container.doubling.centered.grid
 	.eight.wide.column
 		.ui.segment
 			= form_for :swit, url: swits_path, html: {id: "new-swit", class: "ui large form"}, remote: true do |s|
@@ -19,7 +18,5 @@
 
 				#swit-error
 			
-		.ui.swits.items.large.comments.feed
-			= render partial: :swit, collection: @swits
-
-	.four.wide.column
+		.ui.swits.divided.items.large.feed.segment
+			= render partial: 'swit', collection: @swits
