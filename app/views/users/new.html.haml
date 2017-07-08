@@ -2,42 +2,38 @@
 	.ui.inverted.fixed.large.menu
 		.ui.container
 			= link_to 'Switter', root_path, class: "ui orange header inverted item"
-			.right.menu
+.ui.doubling.centered.grid
+	.ten.wide.column
+		= form_for @user, url: signup_path, html: {class: "ui left aligned large form segment", id: "signup"} do |u|
+			.three.fields
+				.required.field
+					= u.label "First Name"
+					= u.text_field :firstname, placeholder: "First Name", required: true
+				.required.field
+					= u.label "Middle Name"
+					= u.text_field :middlename, placeholder: "Middle Name", required: true
+				.required.field
+					= u.label "Last Name"
+					= u.text_field :lastname, placeholder: "Last Name", required: true
+			.two.fields
+				.required.field
+					= u.label "Username"						
+					= u.text_field :username, placeholder: "Username", required: true
+				.required.field
+					= u.label "Email"
+					= u.email_field :email, placeholder: "Email", required: true
+			.two.fields
+				.required.field
+					= u.label "Password"
+					= u.password_field :password, placeholder: "Password", required: true
+				.required.field
+					= u.label "Password confirmation"
+					= u.password_field :password_confirmation, placeholder: "Password Confirmation", required: true
+			.field
+				= u.submit 'Sign Up', class: "ui large button center aligned"
+			.center.aligned
+				Have an account?
 				= link_to 'Login', login_path, class: "item"
-.ui.container
-	.ui.doubling.grid
-		.two.wide.column
-
-		.twelve.wide.column
-			.ui.raised.segment#signup
-				= form_for @user, url: signup_path, html: {class: "ui massive form"} do |u|
-					.three.fields
-						.required.field
-							= u.label "First Name"
-							= u.text_field :firstname, placeholder: "First Name"
-						.required.field
-							= u.label "Middle Name"
-							= u.text_field :middlename, placeholder: "Middle Name"
-						.required.field
-							= u.label "Last Name"
-							= u.text_field :lastname, placeholder: "Last Name"
-					.two.fields
-						.required.field
-							= u.label "Username"						
-							= u.text_field :username, placeholder: "Username"
-						.required.field
-							= u.label "Email"
-							= u.email_field :email, placeholder: "Email"
-					.two.fields
-						.required.field
-							= u.label "Password"
-							= u.password_field :password, placeholder: "Password"
-						.required.field
-							= u.label "Password confirmation"
-							= u.password_field :password_confirmation, placeholder: "Password Confirmation"
-					= u.submit 'Sign Up', class: "ui massive button"
-				- if @user.errors.any?
-					.ui.error.message
-						= @user.errors.full_messages.first
-
-		.two.wide.column
+		- if @user.errors.any?
+			.ui.error.message
+				= @user.errors.full_messages.first

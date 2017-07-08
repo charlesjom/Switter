@@ -1,6 +1,0 @@
-= form_with model: @user, :class => "ui form", url: user_path do |u|
-	%h4.ui.dividing.header
-		Enter new username
-	.field
-		= u.text_field :username, :value => @user.username
-		= u.submit 'Submit', :class => "ui button"
